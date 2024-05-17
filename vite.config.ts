@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
 import { fileURLToPath, URL } from "url";
-import dts from "vite-plugin-dts";
 
 import vue from "@vitejs/plugin-vue";
 
