@@ -2,14 +2,14 @@
     <img title="Flutterwave" height="200" src="https://flutterwave.com/images/logo/full.svg" width="50%"/>
 </p>
 
-# Flutterwave Vue.JS (Vue2) Library
+# Flutterwave Vue.JS (Vue 3) Library
 
 ![Publish Vue.js Package](https://github.com/Flutterwave/Flutterwave-Vue-v3/workflows/Publish%20Vue.js%20Package/badge.svg)
 ![npm](https://img.shields.io/npm/v/flutterwave-vue-v3)
 ![npm](https://img.shields.io/npm/dt/flutterwave-vue-v3)
 ![NPM](https://img.shields.io/npm/l/flutterwave-vue-v3)
 
-The Vue SDK helps you create seamless payment experiences in your Vue(2.X) mobile/web app. By connecting to our modal, you can start collecting payment in no time.
+The all-new Vue SDK helps you create seamless payment experiences in your Vue 3 mobile/web app. By connecting to our modal, you can start collecting payment in no time.
 
 Available features include:
 
@@ -19,31 +19,26 @@ Available features include:
 
 ## Table of Contents
 
-1. [Requirements](#requirements)
-2. [Installation](#installation)
-3. [Initialization](#initialization)
-4. [Usage](#usage)
-5. [Debugging errors](#debugging-errors)
-6. [Support](#support)
-7. [Contribution](#contribution)
-8. [License](#license)
+- [Flutterwave Vue.JS (Vue 3) Library](#flutterwave-vuejs-vue-3-library)
+  - [Table of Contents](#table-of-contents)
+  - [Requirements](#requirements)
+  - [Installation](#installation)
+  - [Initialization](#initialization)
+  - [Usage](#usage)
+  - [Debugging Errors](#debugging-errors)
+  - [Support](#support)
+  - [Contribution](#contribution)
+  - [License](#license)
+  - [Notice](#notice)
 
 ## Requirements
 
 1. Flutterwave for business V3 [API keys](https://developer.flutterwave.com/docs/integration-guides/authentication)
-2. Vue version = 2.x.x
+2. Vue version >= 3.0
 
 ## Installation
 
-Install the SDK
-
-```bash
-$ npm install flutterwave-vue-v3
-
-# OR
-
-$ yarn  add  flutterwave-vue-v3
-```
+This new project is not yet on npm (will need the permission of the Flutterwave team).
 
 ## Initialization
 
@@ -57,22 +52,29 @@ If Public key is not added you will have to pass in the public_key parameter to 
 
 ```javascript
 //main.js
-import Vue from "vue";
-import App from "./App.vue";
+import { createApp } from "vue";
 import Flutterwave from "flutterwave-vue-v3";
 
-Vue.use(Flutterwave, { publicKey: "FLWPUBK_TESTXXXXXXXXXX" });
+const app = createApp(App);
 
-new Vue({
-  render: (h) => h(App),
-}).$mount("#app");
+app.use(Flutterwave, {
+  publicKey: "<your public key here>",
+});
+
+app.mount("#app");
+
 ```
 
 ## Usage
 
-1. [Collections](https://github.com/Flutterwave/Vue-v3/wiki/Collections)
-2. [Recurring Payments](https://github.com/Flutterwave/Vue-v3/wiki/Recurring-Payments)
-3. [Split payments](https://github.com/Flutterwave/Vue-v3/wiki/Split-Payments)
+Majority of the api here works similar to that of the older version. 
+One major difference is the removal of global function imports  (such as `this.payWithFlutterWave`) in favour of **composables** such as `useFlutterWave()`. All functions needed are contained in the composable, and can be accessed.
+
+```typescript
+const fw = useFlutterWave();
+```
+
+See the example at `src/` for more information
 
 ## Debugging Errors
 
@@ -95,3 +97,6 @@ We welcome contributions from the community. Please see the [community guide](/C
 By contributing to this library, you agree that your contributions will be licensed under its MIT license.
 
 Copyright (c) Flutterwave Inc.
+
+## Notice
+This new version was made from the old version at [the current repo](https://github.com/Flutterwave/Vue-v3) by [Nikechukwu Okoronkwo](https://github.com/nikeokoronkwo)
