@@ -41,16 +41,23 @@
     "dev": "vite",
     "build": "vue-tsc && vite build",
     "preview": "vite preview",
-    "format": "prettier . -w"
+    "format": "prettier . -w",
+    "lint": "eslint ."
   },
   "dependencies": {
     "vue": "^3.4.21"
   },
   "devDependencies": {
+    "@eslint/js": "^9.2.0",
     "@types/node": "^20.12.12",
     "@vitejs/plugin-vue": "^5.0.4",
+    "eslint": "^9.2.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-vue": "^9.26.0",
+    "globals": "^15.2.0",
     "prettier": "3.2.5",
     "typescript": "^5.2.2",
+    "typescript-eslint": "^7.9.0",
     "vite": "^5.2.0",
     "vite-plugin-dts": "^3.9.1",
     "vue-tsc": "^2.0.6"
