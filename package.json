@@ -1,9 +1,12 @@
 {
   "name": "flutterwave-vue-v3",
-  "version": "1.0.9",
+  "version": "2.0.0-dev",
   "private": false,
   "description": "Flutterwave official Vue library to accept payment via Card , USSD, QrCode etc.",
   "author": "Flutterwave",
+  "contributors": [
+    { "name": "Nikechukwu Okoronkwo", "url": "https://github.com/nikeokoronkwo" }
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Flutterwave/Vue.git"
