@@ -1,8 +1,8 @@
 <script lang="ts">
-import Vue from 'vue';
+import Vue from "vue";
 
 export default Vue.extend({
-  name: 'FlutterwavePayButton',
+  name: "FlutterwavePayButton",
   props: {
     public_key: {
       type: String,
@@ -51,7 +51,7 @@ export default Vue.extend({
   methods: {
     showPaymentModal(): void {
       const paymentParams: {
-        [key:string]: unknown
+        [key: string]: unknown;
       } = {
         tx_ref: this.tx_ref,
         amount: this.amount,

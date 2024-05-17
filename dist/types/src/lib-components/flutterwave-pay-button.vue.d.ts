@@ -1,7 +1,12 @@
 import Vue from "vue";
-declare const _default: import("vue/types/vue").ExtendedVue<Vue, unknown, {
+declare const _default: import("vue/types/vue").ExtendedVue<
+  Vue,
+  unknown,
+  {
     showPaymentModal(): void;
-}, unknown, {
+  },
+  unknown,
+  {
     public_key: string;
     tx_ref: string;
     amount: string | number;
@@ -15,5 +20,6 @@ declare const _default: import("vue/types/vue").ExtendedVue<Vue, unknown, {
     subaccounts: unknown[];
     callback: Function;
     onclose: Function;
-}>;
+  }
+>;
 export default _default;

@@ -4,8 +4,6 @@ Thank you for taking the time to contribute to our library🙌🏾.
 
 In this section, we detail everything you need to know about contributing to this library.
 
- 
-
 **[Code of Conduct](https://github.com/probot/template/blob/master/CODE_OF_CONDUCT.md)**
 
 ## **I don't want to contribute, I have a question**
@@ -24,17 +22,15 @@ Have you spotted a bug? Fantastic! Before raising an issue, here are some things
 When you report an issue, it is important to:
 
 1. Explain the problem
-    - Use a clear and descriptive title to help us to identify the problem.
-    - Describe steps we can use to replicate the bug and be as precise as possible.
-    - Include screenshots of the error messages.
+   - Use a clear and descriptive title to help us to identify the problem.
+   - Describe steps we can use to replicate the bug and be as precise as possible.
+   - Include screenshots of the error messages.
 2. Include details about your configuration and setup
-    - What version of the library are you using?
-    - Did you experience the bug on test mode or live?
-    - Do you have the recommended versions of the library dependencies?
-
+   - What version of the library are you using?
+   - Did you experience the bug on test mode or live?
+   - Do you have the recommended versions of the library dependencies?
 
 > 💡 Please make use of the issue template when reporting bugs.
-
 
 ### Requesting a feature
 
@@ -63,7 +59,7 @@ Follow these steps when making a pull request to the library:
 3. If you are making a functionality change, update the docs to show how to use the new feature.
 4. Ensure all your tests pass.
 5. Make sure your code lints.
-6. Write clear log messages for your commits. one-liners are fine for small changes, but bigger changes should have a more descriptive commit message (see sample below). 
+6. Write clear log messages for your commits. one-liners are fine for small changes, but bigger changes should have a more descriptive commit message (see sample below).
 7. Use present tense for commit messages, "Add feature" not "Added feature”.
 8. Ensure that you fill out all sections of the PR template.
 9. Raise the PR against the `dev` branch.
@@ -71,7 +67,7 @@ Follow these steps when making a pull request to the library:
 
 ```markdown
 $ git commit -m "A brief summary of the commit
-> 
+
 > A paragraph describing what changed and its impact."
 ```
 

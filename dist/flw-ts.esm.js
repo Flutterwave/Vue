@@ -1,50 +1,50 @@
-import Vue from 'vue';
+import Vue from "vue";
 
 var script = Vue.extend({
   name: "FlutterwavePayButton",
   props: {
     public_key: {
-      type: String
+      type: String,
     },
     tx_ref: {
       type: String,
-      required: true
+      required: true,
     },
     amount: {
       type: [String, Number],
-      required: true
+      required: true,
     },
     currency: {
-      type: String
+      type: String,
     },
     payment_options: {
-      type: String
+      type: String,
     },
     redirect_url: {
-      type: String
+      type: String,
     },
     meta: {
-      type: Object
+      type: Object,
     },
     customer: {
       type: Object,
-      required: true
+      required: true,
     },
     customizations: {
-      type: Object
+      type: Object,
     },
     payment_plan: {
-      type: [String, Number]
+      type: [String, Number],
     },
     subaccounts: {
-      type: Array
+      type: Array,
     },
     callback: {
-      type: Function
+      type: Function,
     },
     onclose: {
-      type: Function
-    }
+      type: Function,
+    },
   },
   methods: {
     showPaymentModal() {
@@ -59,8 +59,8 @@ var script = Vue.extend({
         customizations: this.customizations,
         payment_plan: this.payment_plan,
         subaccounts: this.subaccounts,
-        callback: response => this.callback(response),
-        onclose: () => this.onclose()
+        callback: (response) => this.callback(response),
+        onclose: () => this.onclose(),
       };
 
       if (this.public_key) {
@@ -68,84 +68,95 @@ var script = Vue.extend({
       }
 
       this.$payWithFlutterwave(paymentParams);
-    }
-
-  }
+    },
+  },
 });
 
-function normalizeComponent(template, style, script, scopeId, isFunctionalTemplate, moduleIdentifier /* server only */, shadowMode, createInjector, createInjectorSSR, createInjectorShadow) {
-    if (typeof shadowMode !== 'boolean') {
-        createInjectorSSR = createInjector;
-        createInjector = shadowMode;
-        shadowMode = false;
+function normalizeComponent(
+  template,
+  style,
+  script,
+  scopeId,
+  isFunctionalTemplate,
+  moduleIdentifier /* server only */,
+  shadowMode,
+  createInjector,
+  createInjectorSSR,
+  createInjectorShadow,
+) {
+  if (typeof shadowMode !== "boolean") {
+    createInjectorSSR = createInjector;
+    createInjector = shadowMode;
+    shadowMode = false;
+  }
+  // Vue.extend constructor export interop.
+  const options = typeof script === "function" ? script.options : script;
+  // render functions
+  if (template && template.render) {
+    options.render = template.render;
+    options.staticRenderFns = template.staticRenderFns;
+    options._compiled = true;
+    // functional template
+    if (isFunctionalTemplate) {
+      options.functional = true;
     }
-    // Vue.extend constructor export interop.
-    const options = typeof script === 'function' ? script.options : script;
-    // render functions
-    if (template && template.render) {
-        options.render = template.render;
-        options.staticRenderFns = template.staticRenderFns;
-        options._compiled = true;
-        // functional template
-        if (isFunctionalTemplate) {
-            options.functional = true;
+  }
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId;
+  }
+  let hook;
+  if (moduleIdentifier) {
+    // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
+        context = __VUE_SSR_CONTEXT__;
+      }
+      // inject component styles
+      if (style) {
+        style.call(this, createInjectorSSR(context));
+      }
+      // register component module identifier for async chunk inference
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier);
+      }
+    };
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook;
+  } else if (style) {
+    hook = shadowMode
+      ? function (context) {
+          style.call(
+            this,
+            createInjectorShadow(context, this.$root.$options.shadowRoot),
+          );
         }
-    }
-    // scopedId
-    if (scopeId) {
-        options._scopeId = scopeId;
-    }
-    let hook;
-    if (moduleIdentifier) {
-        // server build
-        hook = function (context) {
-            // 2.3 injection
-            context =
-                context || // cached call
-                    (this.$vnode && this.$vnode.ssrContext) || // stateful
-                    (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext); // functional
-            // 2.2 with runInNewContext: true
-            if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-                context = __VUE_SSR_CONTEXT__;
-            }
-            // inject component styles
-            if (style) {
-                style.call(this, createInjectorSSR(context));
-            }
-            // register component module identifier for async chunk inference
-            if (context && context._registeredComponents) {
-                context._registeredComponents.add(moduleIdentifier);
-            }
+      : function (context) {
+          style.call(this, createInjector(context));
         };
-        // used by ssr in case component is cached and beforeCreate
-        // never gets called
-        options._ssrRegister = hook;
+  }
+  if (hook) {
+    if (options.functional) {
+      // register for functional component in vue file
+      const originalRender = options.render;
+      options.render = function renderWithStyleInjection(h, context) {
+        hook.call(context);
+        return originalRender(h, context);
+      };
+    } else {
+      // inject component registration as beforeCreate hook
+      const existing = options.beforeCreate;
+      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
     }
-    else if (style) {
-        hook = shadowMode
-            ? function (context) {
-                style.call(this, createInjectorShadow(context, this.$root.$options.shadowRoot));
-            }
-            : function (context) {
-                style.call(this, createInjector(context));
-            };
-    }
-    if (hook) {
-        if (options.functional) {
-            // register for functional component in vue file
-            const originalRender = options.render;
-            options.render = function renderWithStyleInjection(h, context) {
-                hook.call(context);
-                return originalRender(h, context);
-            };
-        }
-        else {
-            // inject component registration as beforeCreate hook
-            const existing = options.beforeCreate;
-            options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-        }
-    }
-    return script;
+  }
+  return script;
 }
 
 /* script */
@@ -159,11 +170,16 @@ var __vue_render__ = function () {
 
   var _c = _vm._self._c || _h;
 
-  return _c('button', {
-    on: {
-      "click": _vm.showPaymentModal
-    }
-  }, [_vm._t("default")], 2);
+  return _c(
+    "button",
+    {
+      on: {
+        click: _vm.showPaymentModal,
+      },
+    },
+    [_vm._t("default")],
+    2,
+  );
 };
 
 var __vue_staticRenderFns__ = [];
@@ -185,27 +201,36 @@ const __vue_is_functional_template__ = false;
 
 /* style inject shadow dom */
 
-const __vue_component__ = /*#__PURE__*/normalizeComponent({
-  render: __vue_render__,
-  staticRenderFns: __vue_staticRenderFns__
-}, __vue_inject_styles__, __vue_script__, __vue_scope_id__, __vue_is_functional_template__, __vue_module_identifier__, false, undefined, undefined, undefined);
+const __vue_component__ = /*#__PURE__*/ normalizeComponent(
+  {
+    render: __vue_render__,
+    staticRenderFns: __vue_staticRenderFns__,
+  },
+  __vue_inject_styles__,
+  __vue_script__,
+  __vue_scope_id__,
+  __vue_is_functional_template__,
+  __vue_module_identifier__,
+  false,
+  undefined,
+  undefined,
+  undefined,
+);
 
 var __vue_component__$1 = __vue_component__;
 
 /* eslint-disable import/prefer-default-export */
 
-var components = /*#__PURE__*/Object.freeze({
+var components = /*#__PURE__*/ Object.freeze({
   __proto__: null,
-  FlutterwavePayButton: __vue_component__$1
+  FlutterwavePayButton: __vue_component__$1,
 });
 
 //@ts-ignore
 
 const install = function installFlwTs(Vue, _ref) {
-  let {
-    publicKey = ""
-  } = _ref;
-  Object.entries(components).forEach(_ref2 => {
+  let { publicKey = "" } = _ref;
+  Object.entries(components).forEach((_ref2) => {
     let [componentName, component] = _ref2;
     Vue.component(componentName, component);
   });
@@ -218,32 +243,33 @@ const install = function installFlwTs(Vue, _ref) {
       if (!document.querySelector(`[src="${inlineSdk}"]`)) {
         document.body.appendChild(script);
       }
-    }
-
+    },
   });
 
   Vue.prototype.$payWithFlutterwave = function (paymentParams) {
-    let payData = { ...paymentParams,
+    let payData = {
+      ...paymentParams,
       public_key: paymentParams.public_key || publicKey,
       currency: paymentParams.currency || "NGN",
-      callback: response => {
+      callback: (response) => {
         // trackApi({
         //   paymentData: payData,
         //   response: response,
         //   responseTime: 1000,
         // });
         paymentParams.callback(response);
-      }
+      },
     };
     window.FlutterwaveCheckout(payData);
   };
 
   Vue.prototype.$asyncPayWithFlutterwave = function (paymentData) {
     return new Promise(function (resolve) {
-      let payData = { ...paymentData,
+      let payData = {
+        ...paymentData,
         public_key: paymentData.public_key || publicKey,
         currency: paymentData.currency || "NGN",
-        callback: $event => {
+        callback: ($event) => {
           // trackApi({
           //   paymentData: payData,
           //   response: $event,
@@ -251,16 +277,22 @@ const install = function installFlwTs(Vue, _ref) {
           // });
           resolve($event);
         },
-        onclose: () => resolve("closed")
+        onclose: () => resolve("closed"),
       };
       window.FlutterwaveCheckout(payData);
     });
   };
 
   Vue.prototype.$closePaymentModal = function () {
-    let waitDuration = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+    let waitDuration =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
     setTimeout(() => {
-      document.getElementsByName("checkout")[0].setAttribute("style", "position:fixed;top:0;left:0;z-index:-1;border:none;opacity:0;pointer-events:none;width:100%;height:100%;");
+      document
+        .getElementsByName("checkout")[0]
+        .setAttribute(
+          "style",
+          "position:fixed;top:0;left:0;z-index:-1;border:none;opacity:0;pointer-events:none;width:100%;height:100%;",
+        );
       document.body.style.overflow = ""; // document.getElementsByName('checkout')[0].setAttribute('style', 'z-index: -1; opacity: 0')
     }, waitDuration * 1000);
   };
