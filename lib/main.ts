@@ -17,6 +17,4 @@ Object.entries(components).forEach(([componentName, component]) => {
 
 // Vite build noted that to import this, you will need to use `Flutterwave.default`
 export default plugin;
-export {
-  useFlutterWave
-}
+export { useFlutterWave };

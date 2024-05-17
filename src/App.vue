@@ -6,44 +6,44 @@ import useFlutterWave from "../lib/composables/useFlutterWave";
 const fw = useFlutterWave();
 
 function makePaymentCallback(response: any) {
-      console.log("Pay", response);
-      fw.closePaymentModal(5);
-    }
+  console.log("Pay", response);
+  fw.closePaymentModal(5);
+}
 function asyncPay() {
   fw.asyncPayWithFlutterwave(paymentData).then((response: any) => {
-        console.log(response);
-        fw.closePaymentModal(5);
-      });
-    }
+    console.log(response);
+    fw.closePaymentModal(5);
+  });
+}
 function closeModalCallback() {
-      console.log("Payment is closed");
-    }
+  console.log("Payment is closed");
+}
 function generateReference() {
-      const date = new Date();
-      return date.getTime().toString();
-    }
+  const date = new Date();
+  return date.getTime().toString();
+}
 
 const paymentData = {
-        tx_ref: generateReference(),
-        amount: "100",
-        redirect_url: "https://www.google.com",
-        meta: {
-          counsumer_id: "7898",
-          consumer_mac: "kjs9s8ss7dd",
-        },
-        customer: {
-          name: "Demo Customer  Name",
-          email: "customer@mail.com",
-          phone_number: "0818450***44",
-        },
-        customizations: {
-          title: "Customization Title",
-          description: "Customization Description",
-          logo: "https://flutterwave.com/images/logo-colored.svg",
-        },
-        callback: makePaymentCallback,
-        onclose: closeModalCallback,
-      }
+  tx_ref: generateReference(),
+  amount: "100",
+  redirect_url: "https://www.google.com",
+  meta: {
+    counsumer_id: "7898",
+    consumer_mac: "kjs9s8ss7dd",
+  },
+  customer: {
+    name: "Demo Customer  Name",
+    email: "customer@mail.com",
+    phone_number: "0818450***44",
+  },
+  customizations: {
+    title: "Customization Title",
+    description: "Customization Description",
+    logo: "https://flutterwave.com/images/logo-colored.svg",
+  },
+  callback: makePaymentCallback,
+  onclose: closeModalCallback,
+};
 </script>
 
 <template>

@@ -6,8 +6,6 @@ import * as components from "./components";
 // Import onMount mixin
 import scriptDownloadMixin from "../utils/mixin";
 
-
-
 const install: Plugin = {
   install(app: App, options: { publicKey?: string } = { publicKey: "" }) {
     Object.entries(components).forEach(([componentName, component]) => {
@@ -16,7 +14,7 @@ const install: Plugin = {
 
     app.mixin(scriptDownloadMixin);
 
-    app.provide('public-key', options.publicKey);
+    app.provide("public-key", options.publicKey);
   },
 };
 

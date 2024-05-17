@@ -65,7 +65,7 @@ function showPaymentModal(): void {
   }
 
   // TODO: Use Composables or Inject rather than using global properties
-  
+
   payWithFlutterwave(paymentParams);
 }
 </script>
