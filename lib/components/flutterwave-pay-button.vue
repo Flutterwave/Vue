@@ -32,6 +32,7 @@ const props = defineProps({
   payment_plan: [String, Number],
   subaccounts: Array,
   callback: Function,
+  // closePaymentModal shouldn't be passed as prop
   onclose: Function,
 });
 
