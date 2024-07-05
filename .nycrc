@@ -4,7 +4,5 @@
   "functions": 50,
   "lines": 50,
   "report-dir": "./coverage",
-  "reporter": [
-    "lcov"
-  ]
+  "reporter": ["lcov"]
 }
