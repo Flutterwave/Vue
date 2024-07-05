@@ -1,7 +1,7 @@
 {
   "name": "vue-v4",
   "private": true,
-  "version": "1.0.0-dev",
+  "version": "1.0.0-rc",
   "description": "Flutterwave official Vue library to accept payment via Card , USSD, QrCode etc.",
   "type": "module",
   "contributors": [

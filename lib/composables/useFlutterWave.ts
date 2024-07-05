@@ -1,12 +1,48 @@
+/**
+ * The `useFlutterWave` composable
+ */
 import { inject } from "vue";
 // @ts-ignore
 import global from "../global";
 import { PaymentOptions, PaymentSuccessResponse } from "../interfaces.ts";
 
+/**
+ * The flutterwave composable, used in interacting with functionality for the Flutterwave API.
+ * 
+ * The composable can be used to compose function handlers that run after actions concerning the Flutterwave API, or for composing your own components to interact with the Flutterwave API
+ * The composable exports functions that can be used to interact with the API synchronously or asynchronously with Promises
+ * 
+ * ```vue
+ * <script>
+ * const fw = useFlutterWave();
+ * 
+ * const options = {
+ *  // options...
+ * };
+ * </script>
+ * 
+ * <template>
+ *  <div>
+ *    <button v-on:click="fw.payWithFlutterwave(options)">Pay</button>
+ *    <button v-on:click="fw.asyncPayWithFlutterwave(options)">Pay Async</button>
+ *  </div>
+ * </template>
+ * ```
+ * 
+ * @param options Optional options to pass to the composable
+ * @returns 
+ * 
+ * @example
+ * const fw = useFlutterWave();
+ */
 export default function (
   options: { publicKey?: string } = { publicKey: inject("public-key") },
 ) {
   return {
+    /**
+     * Function used to perform a payment given payment options
+     * @param paymentParams The payment options object
+     */
     payWithFlutterwave: function (paymentParams: PaymentOptions): void {
       const payData = {
         ...paymentParams,

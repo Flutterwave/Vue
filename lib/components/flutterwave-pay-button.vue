@@ -1,4 +1,16 @@
 <script lang="ts">
+/**
+ * The flutterwave pay button
+ * 
+ * This button is used as access to the Futterwave API for payment.
+ * Payment information is passed as props, and then the button is rendered with a slot to display content for the button
+ * 
+ * ```vue
+ * <FlutterwavePayButton v-bind="data">
+ *  Pay
+ * </FlutterwavePayButton>
+ * ```
+ */
 export default {
   name: "FlutterwavePayButton",
   inheritAttrs: false,
@@ -10,6 +22,11 @@ export default {
 import { defineProps } from "vue";
 import useFlutterWave from "../composables/useFlutterWave";
 import { PaymentOptions } from "../interfaces";
+/** 
+ * The properties passed to the component 
+ * 
+ * These properties usually represent payment information, and are used to communicate with the flutterwave API
+ */
 const props = defineProps({
   public_key: String,
   tx_ref: {
