@@ -12,7 +12,7 @@ The Vue SDK helps you create seamless payment experiences in your Vue(2.X) mobil
 
 Available features include:
 
-- Collections: Card, Account, Mobile money, Bank Transfers, USSD, Barter, NQR.
+- Collections: Card, Account, Mobile Money, Bank Transfers, USSD, Barter, NQR.
 - Recurring payments: Tokenization and Subscriptions.
 - Split payments
 
